@@ -7,10 +7,15 @@ fn greet(name: &str) -> String {
 pub mod itemcache_export;
 
 #[tauri::command]
-fn export_itemcache_to_item_template_sql(itemcache_path: String, output_sql_path: String) -> Result<usize, String> {
+fn export_itemcache_to_item_template_sql(
+    itemcache_path: String,
+    output_sql_path: String,
+    use_replace: bool,
+) -> Result<usize, String> {
     itemcache_export::export_itemcache_to_cmangos_item_template_sql(
         std::path::Path::new(&itemcache_path),
         std::path::Path::new(&output_sql_path),
+        use_replace,
     )
 }
 

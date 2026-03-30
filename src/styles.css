@@ -148,6 +148,28 @@ button {
   justify-content: flex-end;
 }
 
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  user-select: none;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2ea043;
+}
+
+.checkbox-row code {
+  color: #79c0ff;
+  background: rgba(110, 118, 129, 0.24);
+  padding: 1px 5px;
+  border-radius: 5px;
+}
+
 .primary-btn {
   min-width: 160px;
   background: #238636;

@@ -779,6 +779,7 @@ fn item_template_columns() -> Vec<String> {
 pub fn export_itemcache_to_cmangos_item_template_sql(
   itemcache_path: &Path,
   output_sql_path: &Path,
+  use_replace: bool,
 ) -> Result<usize, String> {
   let data = std::fs::read(itemcache_path).map_err(|e| e.to_string())?;
   if data.len() < 24 {
@@ -801,9 +802,10 @@ pub fn export_itemcache_to_cmangos_item_template_sql(
 
   let columns = item_template_columns();
   let columns_joined = columns.join(", ");
+  let sql_verb = if use_replace { "REPLACE" } else { "INSERT" };
 
   writer
-    .write_all(format!("REPLACE INTO `item_template` ({columns_joined}) VALUES\n").as_bytes())
+    .write_all(format!("{sql_verb} INTO `item_template` ({columns_joined}) VALUES\n").as_bytes())
     .map_err(|e| e.to_string())?;
 
   let mut first_row = true;

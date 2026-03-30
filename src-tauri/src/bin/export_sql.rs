@@ -16,6 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
   let count = tbc_wdb_parser_lib::itemcache_export::export_itemcache_to_cmangos_item_template_sql(
     &itemcache,
     &output,
+    false,
   )?;
   println!("Exported {} items to {}", count, output.display());
   Ok(())

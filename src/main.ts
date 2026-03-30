@@ -8,9 +8,11 @@ let exportMsgEl: HTMLElement | null;
 let browseItemcacheBtnEl: HTMLButtonElement | null;
 let browseOutputBtnEl: HTMLButtonElement | null;
 let exportBtnEl: HTMLButtonElement | null;
+let useReplaceEl: HTMLInputElement | null;
 
 const ITEMCACHE_PATH_KEY = "tbc-wdb-parser:itemcachePath";
 const OUTPUT_SQL_PATH_KEY = "tbc-wdb-parser:outputSqlPath";
+const USE_REPLACE_KEY = "tbc-wdb-parser:useReplace";
 
 function setStatus(message: string, type: "neutral" | "success" | "error" = "neutral"): void {
   if (!exportMsgEl) return;
@@ -36,6 +38,9 @@ function saveRememberedPaths(): void {
   if (outputSqlPathEl) {
     localStorage.setItem(OUTPUT_SQL_PATH_KEY, outputSqlPathEl.value.trim());
   }
+  if (useReplaceEl) {
+    localStorage.setItem(USE_REPLACE_KEY, useReplaceEl.checked ? "1" : "0");
+  }
 }
 
 function loadRememberedPaths(): void {
@@ -44,6 +49,9 @@ function loadRememberedPaths(): void {
   }
   if (outputSqlPathEl) {
     outputSqlPathEl.value = localStorage.getItem(OUTPUT_SQL_PATH_KEY) ?? "";
+  }
+  if (useReplaceEl) {
+    useReplaceEl.checked = localStorage.getItem(USE_REPLACE_KEY) === "1";
   }
 }
 
@@ -55,10 +63,12 @@ window.addEventListener("DOMContentLoaded", () => {
   browseItemcacheBtnEl = document.querySelector("#browse-itemcache-btn");
   browseOutputBtnEl = document.querySelector("#browse-output-btn");
   exportBtnEl = document.querySelector("#export-btn");
+  useReplaceEl = document.querySelector("#use-replace");
   loadRememberedPaths();
 
   itemcachePathEl?.addEventListener("input", saveRememberedPaths);
   outputSqlPathEl?.addEventListener("input", saveRememberedPaths);
+  useReplaceEl?.addEventListener("change", saveRememberedPaths);
 
   browseItemcacheBtnEl?.addEventListener("click", async () => {
     if (!itemcachePathEl) return;
@@ -98,6 +108,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const itemcachePath = itemcachePathEl.value.trim();
     const outputSqlPath = outputSqlPathEl.value.trim();
+    const useReplace = useReplaceEl?.checked ?? false;
+    const sqlMode = useReplace ? "REPLACE" : "INSERT";
 
     if (!itemcachePath || !outputSqlPath) {
       setStatus("Please provide both input and output paths.", "error");
@@ -106,11 +118,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
     saveRememberedPaths();
     setBusyState(true);
-    setStatus("Export in progress...");
+    setStatus(`Export in progress... Mode: ${sqlMode}`);
     try {
       const count = await invoke("export_itemcache_to_item_template_sql", {
         itemcachePath,
         outputSqlPath,
+        useReplace,
       });
       setStatus(`Done. Exported ${count} items.`, "success");
     } catch (err) {
