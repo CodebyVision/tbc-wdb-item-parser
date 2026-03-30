@@ -1,5 +1,7 @@
 # TBC WDB Item Parser
 
+<img width="1188" height="919" alt="image" src="https://github.com/user-attachments/assets/c442694e-0bfc-4402-baff-497e4dae7c59" />
+
 Desktop app built with Tauri + TypeScript to parse `itemcache.wdb` files and export SQL output for item template workflows.
 
 ## Stack
