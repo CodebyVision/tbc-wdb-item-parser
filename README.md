@@ -2,6 +2,8 @@
 
 [![GitHub all releases downloads](https://img.shields.io/github/downloads/CodebyVision/tbc-wdb-item-parser/total?label=downloads)](https://github.com/CodebyVision/tbc-wdb-item-parser/releases)
 
+<img width="1188" height="919" alt="image" src="https://github.com/user-attachments/assets/c442694e-0bfc-4402-baff-497e4dae7c59" />
+
 Desktop app built with Tauri + TypeScript to parse `itemcache.wdb` files and export SQL output for item template workflows.
 
 ## Stack
