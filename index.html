@@ -4,21 +4,61 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>TBC WDB Item Parser</title>
     <script type="module" src="/src/main.ts" defer></script>
   </head>
 
   <body>
-    <main class="container">
-      <h2>Export item_template SQL</h2>
-      <form class="row" id="export-form">
-        <input id="itemcache-path" placeholder="Path to itemcache.wdb" />
-        <button type="button" id="browse-itemcache-btn">Browse .wdb</button>
-        <input id="output-sql-path" placeholder="Output SQL path (item_template.sql)" />
-        <button type="button" id="browse-output-btn">Browse output .sql</button>
-        <button type="submit">Export</button>
-      </form>
-      <p id="export-msg"></p>
+    <main class="app-shell">
+      <section class="card">
+        <header class="card-header">
+          <p class="eyebrow">TBC Tools</p>
+          <h1>Itemcache to SQL Exporter</h1>
+          <p class="subtitle">
+            Select your <code>itemcache.wdb</code> file and choose where to save
+            the generated SQL.
+          </p>
+        </header>
+
+        <form id="export-form" class="export-form">
+          <div class="field-group">
+            <label for="itemcache-path">Input WDB file</label>
+            <div class="input-row">
+              <input
+                id="itemcache-path"
+                type="text"
+                placeholder="C:\path\to\itemcache.wdb"
+              />
+              <button type="button" id="browse-itemcache-btn" class="secondary-btn">
+                Browse .wdb
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="output-sql-path">Output SQL file</label>
+            <div class="input-row">
+              <input
+                id="output-sql-path"
+                type="text"
+                placeholder="C:\path\to\item_template.sql"
+              />
+              <button type="button" id="browse-output-btn" class="secondary-btn">
+                Browse .sql
+              </button>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="export-btn" class="primary-btn">Export SQL</button>
+          </div>
+        </form>
+
+        <p id="export-msg" class="status-msg" role="status" aria-live="polite"></p>
+        <footer class="helper-text">
+          Tip: Use absolute paths for best compatibility.
+        </footer>
+      </section>
     </main>
   </body>
 </html>

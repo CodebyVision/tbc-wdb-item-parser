@@ -3930,7 +3930,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "tbc-wdb-parser"
+name = "tbc-wdb-item-parser"
 version = "0.1.0"
 dependencies = [
  "serde",

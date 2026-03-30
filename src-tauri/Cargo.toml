@@ -1,10 +1,10 @@
 [package]
-name = "tbc-wdb-parser"
+name = "tbc-wdb-item-parser"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
 edition = "2021"
-default-run = "tbc-wdb-parser"
+default-run = "tbc-wdb-item-parser"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

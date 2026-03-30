@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "tbc-wdb-parser",
+  "productName": "tbc-wdb-item-parser",
   "version": "0.1.0",
-  "identifier": "com.cyber.tbc-wdb-parser",
+  "identifier": "com.cyber.tbc-wdb-item-parser",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "tbc-wdb-parser",
+        "title": "tbc-wdb-item-parser",
         "width": 800,
         "height": 600
       }
