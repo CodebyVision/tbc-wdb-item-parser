@@ -5,7 +5,7 @@
   "identifier": "com.cyber.tbc-wdb-item-parser",
   "build": {
     "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
+    "devUrl": "http://localhost:1449",
     "beforeBuildCommand": "npm run build",
     "frontendDist": "../dist"
   },
@@ -15,7 +15,8 @@
       {
         "title": "tbc-wdb-item-parser",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "center": true
       }
     ],
     "security": {

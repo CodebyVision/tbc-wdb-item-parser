@@ -9,6 +9,9 @@ let browseItemcacheBtnEl: HTMLButtonElement | null;
 let browseOutputBtnEl: HTMLButtonElement | null;
 let exportBtnEl: HTMLButtonElement | null;
 
+const ITEMCACHE_PATH_KEY = "tbc-wdb-parser:itemcachePath";
+const OUTPUT_SQL_PATH_KEY = "tbc-wdb-parser:outputSqlPath";
+
 function setStatus(message: string, type: "neutral" | "success" | "error" = "neutral"): void {
   if (!exportMsgEl) return;
   exportMsgEl.textContent = message;
@@ -26,6 +29,24 @@ function setBusyState(isBusy: boolean): void {
   }
 }
 
+function saveRememberedPaths(): void {
+  if (itemcachePathEl) {
+    localStorage.setItem(ITEMCACHE_PATH_KEY, itemcachePathEl.value.trim());
+  }
+  if (outputSqlPathEl) {
+    localStorage.setItem(OUTPUT_SQL_PATH_KEY, outputSqlPathEl.value.trim());
+  }
+}
+
+function loadRememberedPaths(): void {
+  if (itemcachePathEl) {
+    itemcachePathEl.value = localStorage.getItem(ITEMCACHE_PATH_KEY) ?? "";
+  }
+  if (outputSqlPathEl) {
+    outputSqlPathEl.value = localStorage.getItem(OUTPUT_SQL_PATH_KEY) ?? "";
+  }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   exportFormEl = document.querySelector("#export-form");
   itemcachePathEl = document.querySelector("#itemcache-path");
@@ -34,6 +55,10 @@ window.addEventListener("DOMContentLoaded", () => {
   browseItemcacheBtnEl = document.querySelector("#browse-itemcache-btn");
   browseOutputBtnEl = document.querySelector("#browse-output-btn");
   exportBtnEl = document.querySelector("#export-btn");
+  loadRememberedPaths();
+
+  itemcachePathEl?.addEventListener("input", saveRememberedPaths);
+  outputSqlPathEl?.addEventListener("input", saveRememberedPaths);
 
   browseItemcacheBtnEl?.addEventListener("click", async () => {
     if (!itemcachePathEl) return;
@@ -45,6 +70,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       if (typeof selected === "string") {
         itemcachePathEl.value = selected;
+        saveRememberedPaths();
       }
     } catch (err) {
       setStatus(`Browse failed: ${String(err)}`, "error");
@@ -59,6 +85,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       if (selected) {
         outputSqlPathEl.value = selected;
+        saveRememberedPaths();
       }
     } catch (err) {
       setStatus(`Browse failed: ${String(err)}`, "error");
@@ -77,6 +104,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    saveRememberedPaths();
     setBusyState(true);
     setStatus("Export in progress...");
     try {
